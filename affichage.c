@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 void print_labyrinthe()
 {
     int raw,line;
@@ -6,11 +8,12 @@ void print_labyrinthe()
 
     for (line = 0; line < max_line; line++){
         for (raw = 0; raw < max_raw; raw++){
-            if (line == 0 || line == max_line-1 || raw%2 == 0;){
+            if (line%2 == 0 || raw%2 == 0){
                 printf("#");        
             }else{
                 printf(" ");
             }
         }
+        printf("\n");
     }
 }
