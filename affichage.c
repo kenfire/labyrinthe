@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h> 
 
-int random (int min, int max)
+int arbitrary (int min, int max)
 {
-    srand(time(NULL));
-    return (int) rand()%max + min;
+    return (int) ((double)rand()/RAND_MAX)*max + min;
 }
 /*
  * 
@@ -39,12 +39,12 @@ void create_labyrinthe (int max_line, int max_col, int arr[max_line][max_col])
     
     while (!finish)
     {
-        alea_line = random(min_cell + 2, max_cell - 2);
-        alea_col = random(min_cell + 2, max_cell - 2);
-        
-        if (alea_line %2 != 0)
-        { 
-            alea_line += 1;
+        alea_line = arbitrary(min_cell + 2, max_cell - 2);
+        alea_col = arbitrary(min_cell + 2, max_cell - 2);
+
+        if (alea_line %2 != 0 && alea_col %2 != 0)
+        {
+
         }
 
         if (alea_col %2 != 0)
@@ -69,7 +69,6 @@ void print_labyrinthe (int max_line, int max_col)
         }
         printf("\n");
     }
-    rand_num = random(1,cell_num-1);
-    printf("%d", rand_num);
-       
+    rand_num = arbitrary(1,cell_num-1);
+    printf("%d", rand_num);      
 }
