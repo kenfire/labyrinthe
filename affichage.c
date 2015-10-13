@@ -4,7 +4,7 @@
 
 int arbitrary (int min, int max)
 {
-    return (int) ((double)rand()/RAND_MAX)*max + min;
+    return (int) rand()%max + min;
 }
 /*
  * 
