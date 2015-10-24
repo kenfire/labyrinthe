@@ -7,14 +7,17 @@ CC = $(GCC) $(GCC_FLAGS)
 
 all : executable
 
-executable : labyrinthe.o affichage.o
-		$(CC) -o executable labyrinthe.o affichage.o
+executable : main.o labyrinth.o menu.o
+		$(CC) -o executable main.o labyrinth.o menu.o
 
-labyrinthe.o : labyrinthe.c
-		$(CC) -c labyrinthe.c
+main.o : main.c
+		$(CC) -c main.c
 
-affichage.o : affichage.c affichage.h
-		$(CC) -c affichage.c
+labyrinth.o : labyrinth.c labyrinth.h
+		$(CC) -c labyrinth.c
+
+menu.o : menu.c menu.h
+		$(CC) -c menu.c
 
 clean :
-		rm labyrinthe.o affichage.o executable core
+		rm main.o labyrinth.o executable core

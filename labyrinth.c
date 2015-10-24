@@ -2,9 +2,39 @@
 #include <time.h>
 #include <stdlib.h> 
 
+/**
+ * \brief Génère un nombre aléatoire borné
+ * \param min Borne minimum
+ * \param max Borne minimum
+ */
 int rand_ab (int min, int max)
 {
      return (int) rand()% max + min;
+}
+
+void get_size (int* max_line, int* max_col)
+{
+    char buff[100];
+    
+    printf("Veuillez entrer la taille du labyrinthe\n");
+    
+    printf("Nombre de lignes ?\n");
+    scanf("%s", buff);
+    *max_line= (int) strtol(buff, NULL, 10);
+      
+    printf("Nombre de colonnes ?\n");
+    scanf("%s", buff);
+    *max_col= (int) strtol(buff, NULL, 10);
+
+    if (*max_line%2 ==0)
+    {
+        *max_line += 1;
+    }
+
+    if(*max_col %2 ==0)
+    {
+        *max_col += 1;
+    }
 }
 
 int** malloc_2D_array (int line, int col)
@@ -47,7 +77,7 @@ void init_grid (int** laby, int max_line, int max_col)
     }
 }
 
-void create_labyrinthe (int** laby,int max_line, int max_col)
+void create_labyrinth (int** laby,int max_line, int max_col)
 {
     int i, j, k;
     int search_value;
