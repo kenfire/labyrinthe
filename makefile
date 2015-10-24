@@ -7,7 +7,7 @@ CC = $(GCC_COMP) $(GCC_FLAGS)
 all : executable
 
 executable : labyrinthe.o affichage.o
-	        $(CC)-o executable labyrinthe.o affichage.o
+	        $(CC) -o executable labyrinthe.o affichage.o
 
 labyrinthe.o : labyrinthe.c
 			$(CC) -c labyrinthe.c

@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h> 
 
-int arbitrary (int min, int max)
+int rand_ab (int min, int max)
 {
      return (int) rand()% max + min;
 }
@@ -50,45 +50,96 @@ void init_grid (int** laby, int max_line, int max_col)
 
 void create_labyrinthe (int** laby,int max_line, int max_col)
 {
-    int finish = 0;
-    int alea_line = 0;
-    int alea_col = 0;
+    int i, j, k;
+    int search_value;
+    int value;
+    int vertical_wall; /* Boolean  */
+    int line = 0;
+    int col = 0;
     int min_cell = 1;
     int max_cell = (max_line -1) * (max_col - 1) / 4;
-
+    int finish = (max_line/2) * (max_col /2) -1;
     init_grid(laby, max_line, max_col);
-    /*
-    while (!finish)
+    
+    for(i = 0; i< finish; i++)
     {
-        alea_line = arbitrary(min_cell + 2, max_cell - 2);
-        alea_col = arbitrary(min_cell + 2, max_cell - 2);
+        printf("finish = %d-%d-%d\n", finish, max_line,max_col);
 
-        if (alea_line %2 != 0 && alea_col %2 != 0)
+        do{
+            line = rand_ab(min_cell, max_line -2);
+            col = rand_ab(min_cell, max_col -2);
+            
+            vertical_wall = col %2;
+
+            if (vertical_wall)
+            {
+                value = laby[line-1][col];
+                search_value = laby[line+1][col];
+            }
+            else
+            {
+                value = laby[line][col-1];
+                search_value = laby[line][col+1];
+            }
+   
+    
+         } while(   (line %2 == 0 && col %2 == 0) 
+                || (line %2 != 0 && col %2 != 0)
+                || laby[line][col] !=0 
+                || value == search_value);
+        /* tant que ce n'est pas un mur ... */
+        
+        
+        laby[line][col] = value;
+
+        printf("%d - %d - vertical= %d------------\n", line, col, vertical_wall);
+        printf("%d - searching %d\n", value, search_value);
+        for (j = 0; j<max_line ; j++)
         {
-
+            for (k=0 ; k<max_col ; k++)
+            {
+                if (laby[j][k] == search_value)
+                {
+                    printf("find: %d-%d\n", j,k);
+                    laby[j][k] = value;
+                }
+            }
         }
 
-        if (alea_col %2 != 0)
-        {
-            alea_col += 1;
-        }
-        
-        printf("%d -- %d\n", alea_line, alea_col);
-
-        finish = 1;
-        
-    }*/
+        laby[1][0] = value;
+        laby[max_line-2][max_col-1] = value;
+    }
 }
 
 void print_2D_array(int** arr, int max_line, int max_col)
 {
     int col, line, rand_num;
-    int cell_max =  max_line * max_col /4;
-
+    printf("\n");
     for (line = 0; line < max_line; line++){
         for (col = 0; col < max_col; col++){
-            printf("\t%d", arr[line][col]);
+            if(arr[line][col] == 0)
+                printf("#");
+            else
+                printf(" ", arr[line][col]);
         }
         printf("\n");
     }
 }
+
+/**
+ * \brief Libère l'allocation mémoire du tableau 2D
+ * \param arr le tableau contenant le carré
+ * \param line le nombre de ligne dans le carré
+ *
+ */
+void free_2D_array(int** arr, int line)
+{
+    int i;
+
+    for (i = 0; i< line; i++)
+    {
+        free(arr[i]);
+    }
+    free(arr);
+}
+
