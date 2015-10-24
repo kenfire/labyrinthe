@@ -34,12 +34,11 @@ void init_grid (int** laby, int max_line, int max_col)
 {
     int col, line;
     int cell_num=1;
-    int rand_num; 
     
     for (line = 0; line < max_line; line++){
         for (col = 0; col < max_col; col++){
             if (line%2 == 0 || col%2 == 0){
-                // 0 = "#" for walls
+                /* 0 = "#" for walls */
                 laby[line][col] = 0;        
             }else{
                 laby[line][col] = cell_num++;
@@ -57,13 +56,12 @@ void create_labyrinthe (int** laby,int max_line, int max_col)
     int line = 0;
     int col = 0;
     int min_cell = 1;
-    int max_cell = (max_line -1) * (max_col - 1) / 4;
+    /*int max_cell = (max_line -1) * (max_col - 1) / 4;*/
     int finish = (max_line/2) * (max_col /2) -1;
     init_grid(laby, max_line, max_col);
     
     for(i = 0; i< finish; i++)
     {
-        printf("finish = %d-%d-%d\n", finish, max_line,max_col);
 
         do{
             line = rand_ab(min_cell, max_line -2);
@@ -92,35 +90,34 @@ void create_labyrinthe (int** laby,int max_line, int max_col)
         
         laby[line][col] = value;
 
-        printf("%d - %d - vertical= %d------------\n", line, col, vertical_wall);
-        printf("%d - searching %d\n", value, search_value);
         for (j = 0; j<max_line ; j++)
         {
             for (k=0 ; k<max_col ; k++)
             {
                 if (laby[j][k] == search_value)
                 {
-                    printf("find: %d-%d\n", j,k);
                     laby[j][k] = value;
                 }
             }
         }
 
-        laby[1][0] = value;
+        laby[1][0] = -1;
         laby[max_line-2][max_col-1] = value;
     }
 }
 
 void print_2D_array(int** arr, int max_line, int max_col)
 {
-    int col, line, rand_num;
+    int col, line;
     printf("\n");
     for (line = 0; line < max_line; line++){
         for (col = 0; col < max_col; col++){
             if(arr[line][col] == 0)
                 printf("#");
+            else if (arr[line][col] == -1)
+                printf("o");
             else
-                printf(" ", arr[line][col]);
+                printf(" ");
         }
         printf("\n");
     }

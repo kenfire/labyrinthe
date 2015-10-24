@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "affichage.h"
 
-#define MAX_LINE 5
-#define MAX_COL 11
+#define MAX_LINE 9
+#define MAX_COL 23
 
 int main(void)
 {
